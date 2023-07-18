@@ -1,0 +1,106 @@
+body {
+    overflow-x: hidden;
+
+}
+
+#input {
+    width: 400px;
+    border-radius: 25px !important;
+}
+
+.rounded-pill {
+    width: 100px;
+}
+
+.logosearch {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    margin-left: 367px;
+    margin-top: 10px;
+}
+
+.logo_2 {
+    border-radius: 5px;
+    border: 1px #8E8E93 solid;
+    padding: 8px;
+}
+
+.cart {
+    font-size: 24px;
+    margin-right: 24px;
+    color: #8E8E93;
+}
+
+.bell {
+    font-size: 24px;
+    margin-right: 24px;
+    color: #8E8E93;
+}
+
+.envelope {
+    font-size: 24px;
+    margin-right: 24px;
+    color: #8E8E93;
+}
+
+.profile {
+    font-size: 24px;
+    margin-right: 24px;
+    color: #8E8E93;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+.product {
+    background: #ffffff;
+    box-shadow: 0px 0px 14px rgba(173, 173, 173, 0.25);
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 15px;
+}
+
+span {
+    color: #8E8E93;
+}
+
+.delete {
+    color: red;
+    background-color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+/* div {
+    border: 1px solid;
+} */
+
+
+@media only screen and (max-width: 600px) {
+    .squer {
+        display: none;
+    }
+
+    .input {
+        width: 100%;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    hr {
+        width: auto;
+    }
+}
