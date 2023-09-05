@@ -1,85 +1,120 @@
 import React, { useEffect, useState } from 'react'
 import '../assets/style/DetailProduct.css'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { FormatRupiah } from '@arismun/format-rupiah'
 import SizeButton from '../components/SizeButton'
-import TotalButton from '../components/TotalButton'
 import stars from '../assets/image/Group 1288.png'
 import black from '../assets/image/Ellipse 5.png'
 import star from '../assets/image/activated.png'
 import NewProduct from '../components/NewProduct'
-import NavbarHomePublic from '../components/NavbarHomePublic'
+import NavbarAuth from '../components/NavbarAuth'
+import Footer from '../components/Footer'
 
 
 const DetailProduct = () => {
+    const navigate = useNavigate();
     const { product_id } = useParams()
+    const idUser = localStorage.getItem("id")
     const [product, setProduct] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/products/${product_id}`)
+        axios.get(`${process.env.REACT_APP_API_KEY}/products/${product_id}`)
             .then((response) => {
                 setProduct(response.data.data[0]);
-                console.log();
-
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [product_id]);
+
+    const [data, setData] = useState({
+        product_id: product_id,
+        quantity: 1,
+        id_customer: idUser,
+      });
+    
+      const handleChange = (e) => {
+        setData({
+          ...data,
+          [e.target.name]: e.target.value,
+        });
+      };
+    
+      const handleAddToChart = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_API_KEY}/orders`, data)
+        .then((res) => {
+          if (res.data.statusCode === 201) {
+            alert("Product add to chart")
+          } else {
+            alert("error");
+          }
+        });
+      }
+
+      const handleBuyNow = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_API_KEY}/orders`, data)
+        .then((res) => {
+          if (res.data.statusCode === 201) {
+            navigate('/CheckOut')
+          } else {
+            alert("error");
+          }
+        });
+      }
 
     return (
         <>
-            <NavbarHomePublic />
-            <main>
-                <section>
-                    <div className="container">
-                        <div className="mt-5 mb-5">
-                            <a href="">Home</a>
-                            <span>&gt;</span>
-                            <a href="">Category</a>
-                            <span>&gt;</span>
-                            <a href="">T-shirt</a>
-                        </div>
+            <NavbarAuth />
+            <main className="container">
+                <section className="container">
+                    <div className="mt-5 mb-5">
+                        <Link to="#">Home</Link>
+                        <span>&gt;</span>
+                        <Link to="#">Category</Link>
+                        <span>&gt;</span>
+                        <Link to="#">T-shirt</Link>
                     </div>
                 </section>
                 <section className="container">
                     <div className="row">
                         <div className="col-md-4 left-section">
                             <img
-                                style={{ borderRadius: 10 }}
+                                style={{ borderRadius: 5, height: 380, width: 340 }}
                                 crossOrigin='anonymous'
                                 src={product.image}
                                 alt="product"
                             />
-                            <div className="row mt-2 m-0">
-                                <div className="col-md-3 col-3 d-flex justify-content-center">
+                            <div className="row mt-2 m-0 d-flex justify-content-between">
+                                <div className="col-md-3 col-3">
                                     <img
-                                        style={{ borderRadius: 10 }}
+                                        style={{ borderRadius: 2 }}
                                         crossOrigin='anonymous'
                                         src={product.image}
                                         alt="product"
                                     />
                                 </div>
-                                <div className="col-md-3 col-3 d-flex justify-content-center">
+                                <div className="col-md-3 col-3">
                                     <img
-                                        style={{ borderRadius: 10 }}
+                                        style={{ borderRadius: 2 }}
                                         crossOrigin='anonymous'
                                         src={product.image}
                                         alt="product"
                                     />
                                 </div>
-                                <div className="col-md-3 col-3 d-flex justify-content-center">
+                                <div className="col-md-3 col-3">
                                     <img
-                                        style={{ borderRadius: 10 }}
+                                        style={{ borderRadius: 2 }}
                                         crossOrigin='anonymous'
                                         src={product.image}
                                         alt="product"
                                     />
                                 </div>
-                                <div className="col-md-3 col-3 d-flex justify-content-center">
+                                <div className="col-md-3 col-3">
                                     <img
-                                        style={{ borderRadius: 10 }}
+                                        style={{ borderRadius: 2 }}
                                         crossOrigin='anonymous'
                                         src={product.image}
                                         alt="product"
@@ -87,7 +122,7 @@ const DetailProduct = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-8 right-section">
+                        <div className="col-md-8 right-section my-md-0 my-3">
                             <div>
                                 <h1>{product.product_name}</h1>
                                 <p>{product.brand}</p>
@@ -97,7 +132,12 @@ const DetailProduct = () => {
                             </div>
                             <div className="mt-3">
                                 <span>Price</span>
-                                <h1><FormatRupiah value={product.price}/></h1>
+                                <h1><FormatRupiah value={product.price} /></h1>
+                                {/* <h1>Rp.{
+                                    new Intl.NumberFormat("Rp", {
+                                        maximumSignificantDigits: 3
+                                    }).format(product.price)
+                                }</h1> */}
                             </div>
                             <div className="mt-3">
                                 <p>Colour</p>
@@ -116,21 +156,96 @@ const DetailProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <p style={{ textAlign: "center" }}>Total</p>
-                                    <div className="row container m-0">
-                                        <div>
-                                            <TotalButton />
+                                <div >
+                                    <p
+                                        style={{
+                                            fontWeight: 500,
+                                            color: "#9b9b9b",
+                                            textAlign:"center"
+                                            
+                                        }}
+                                        id='quanti'
+                                    >
+                                        Quantity
+                                    </p>
+                                    <div className="color-groups row">
+                                        <div
+                                            className="color color-white text-center"
+                                            style={{
+                                                fontSize: 20,
+                                                width: "36px",
+                                                height: "36px",
+                                                borderRadius: "50%",
+                                                backgroundColor: "#D4D4D4",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            onClick={() => {
+                                                setData({
+                                                    ...data,
+                                                    quantity: Math.max(1, data.quantity - 1),
+                                                });
+                                            }}
+                                        >
+                                            -
+                                        </div>
+
+                                        <input
+                                            type="text"
+                                            className="color color text-center"
+                                            style={{
+                                                borderColor: "transparent",
+                                                width: "70px",
+                                            }}
+                                            placeholder="1"
+                                            name="quantity"
+                                            value={data.quantity}
+                                            onChange={handleChange}
+                                        />
+
+                                        <div
+                                            className="color color-white text-center"
+                                            style={{
+                                                fontSize: 20,
+                                                width: "36px",
+                                                height: "36px",
+                                                borderRadius: "50%",
+                                                backgroundColor: "white",
+                                                boxShadow: "0px 0px 4px rgba(142, 142, 142, 0.25)",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                color: "black",
+                                            }}
+                                            onClick={() => {
+                                                setData({
+                                                    ...data,
+                                                    quantity: parseInt(data.quantity, 10) + 1,
+                                                });
+                                            }}
+                                        >
+                                            +
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className='row m-0 mt-4'>
+                                    <button className='btn btn-outline-danger mr-3' onClick={handleAddToChart}>
+                                        Add to cart
+                                    </button>
+                                {/* <Link to={'/CheckOut'} > */}
+                                    <button className='btn btn-danger' onClick={handleBuyNow}>
+                                        Buy now
+                                    </button>
+                                {/* </Link> */}
                             </div>
                         </div>
                     </div>
                 </section>
                 <section className="container">
-                    <div className="mt-3">
-                        <h1>Informasi product</h1>
+                    <div className="mt-4">
+                        <h1>Product information</h1>
                     </div>
                     <div className="mt-2">
                         <p>
@@ -146,24 +261,7 @@ const DetailProduct = () => {
                             Description{" "}
                             <span>
                                 <br />
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                <br />
-                                <br />
-                                Donec non magna rutrum, pellentesque augue eu, sagittis velit.
-                                Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et
-                                malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim
-                                vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique
-                                placerat. Pellentesque a consequat mauris, vel suscipit ipsum.
-                                <br />
-                                Donec ac mauris vitae diam commodo vehicula. Donec quam elit,
-                                sollicitudin eu nisl at, ornare suscipit magna.
-                                <br />
-                                <br />
-                                Donec non magna rutrum, pellentesque augue eu, sagittis velit.
-                                Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et
-                                malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim
-                                vel turpis blandit imperdiet ac ac felis. In ultricies rutrum
-                                tempus. Mauris vel molestie orci.
+                                {product.description}
                             </span>
                         </p>
                     </div>
@@ -177,41 +275,42 @@ const DetailProduct = () => {
                                     {product.rating}<span style={{ fontSize: "medium" }}>/5</span>
                                 </h1>
                                 <div className="row m-0">
-                                    <img src={star} alt="stars" />
-                                    <img src={star} alt="stars" />
-                                    <img src={star} alt="stars" />
-                                    <img src={star} alt="stars" />
-                                    <img src={star} alt="stars" />
+                                    <img src={star} alt="stars" id='star' />
+                                    <img src={star} alt="stars" id='star' />
+                                    <img src={star} alt="stars" id='star' />
+                                    <img src={star} alt="stars" id='star' />
+                                    <img src={star} alt="stars" id='star' />
                                 </div>
                             </div>
                             <div className="ml-md-5 ml-auto">
                                 <div className="d-flex flex-column">
-                                    <div className="d-flex justify-content-center">
-                                        <img src={star} alt="stars" />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <img src={star} alt="stars" id='star' />
                                         <span> 5</span>
                                     </div>
-                                    <div className="d-flex justify-content-center">
-                                        <img src={star} alt="stars" />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <img src={star} alt="stars" id='star' />
                                         <span> 4</span>
                                     </div>
-                                    <div className="d-flex justify-content-center">
-                                        <img src={star} alt="stars" />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <img src={star} alt="stars" id='star' />
                                         <span> 3</span>
                                     </div>
-                                    <div className="d-flex justify-content-center">
-                                        <img src={star} alt="stars" />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <img src={star} alt="stars" id='star' />
                                         <span> 2</span>
                                     </div>
-                                    <div className="d-flex justify-content-center">
-                                        <img src={star} alt="stars" />
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <img src={star} alt="stars" id='star' />
                                         <span> 1</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="ml-3">
                                 <hr
-                                    className="mt-2"
-                                    style={{ border: "5px green solid", width: 120, borderRadius: 8 }}
+                                    id='progres-rating'
+                                    className="mt-md-2 mt-1"
+                                    style={{ borderRadius: 8 }}
                                 />
                             </div>
                             <div className="ml-3 d-flex flex-column">
@@ -224,27 +323,20 @@ const DetailProduct = () => {
                         </div>
                     </div>
                 </section>
-                <div className="container p-0">
+                <section className="container">
                     <hr
                         className="mt-5"
-                        style={{ border: "2px color #8E8E93 solid", width: "100%" }}
+                        style={{ border: "2px color #8E8E93 solid" }}
                     />
-                </div>
-                <section className="container">
-                    <div className="mt-5">
-                        <h1>
+                    <div className="mt-5 product">
+                        <h1 className='px-3' style={{ color: "red" }}>
                             You can also like this
-                            <br />
-                            <p style={{ fontSize: "medium", paddingTop: 1, color: "#8E8E93" }}>
-                                You’ve never seen it before!
-                            </p>
                         </h1>
-                    </div>
-                    <div className="row mt-3 container m-0">
-                       <NewProduct />
+                        <NewProduct />
                     </div>
                 </section>
             </main>
+            <Footer />
         </>
 
     )

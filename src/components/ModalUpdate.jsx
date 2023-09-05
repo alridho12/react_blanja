@@ -1,9 +1,16 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ModalUpdate({ product_id, product_name, brand, price, color, size, stock, rating, category_id,}) {
+function ModalUpdate({ product_id, product_name, brand, price, color, size, stock, rating, category_id, description, id_seller }) {
+    const [login, setLogin] = useState();
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        const login = localStorage.getItem('id')
+        setLogin(login)
+    }, []);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -15,9 +22,11 @@ function ModalUpdate({ product_id, product_name, brand, price, color, size, stoc
         size,
         stock,
         rating,
-        category_id
+        category_id,
+        description,
+        id_seller
     })
-    let [image, setImage] = useState(null)
+    // let [image, setImage] = useState(null)
 
     let handleChange = (e) => {
         setData({
@@ -42,8 +51,10 @@ function ModalUpdate({ product_id, product_name, brand, price, color, size, stoc
         formData.append("stock", data.stock);
         formData.append("rating", data.rating);
         formData.append("category_id", data.category_id);
+        formData.append("id_seller", data.id_seller);
         formData.append("image", image);
-        axios.put(`http://localhost:3000/products/${product_id}`, formData, {
+        formData.append("description", data.description);
+        axios.put(`${process.env.REACT_APP_API_KEY}/products/${product_id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -58,13 +69,13 @@ function ModalUpdate({ product_id, product_name, brand, price, color, size, stoc
                 alert(err);
                 setShow(false);
             });
-        
+
 
     }
 
     return (
         <>
-            <Button variant="warning" onClick={handleShow}>
+            <Button variant="outline-danger" onClick={handleShow}>
                 Update
             </Button>
             <Modal show={show} onHide={handleClose} animation={false}>
@@ -73,6 +84,13 @@ function ModalUpdate({ product_id, product_name, brand, price, color, size, stoc
                 </Modal.Header>
                 <form onSubmit={handleSubmit}>
                     <Modal.Body>
+                        <input
+                            className='form-control mt-3'
+                            type='hidden'
+                            name='id_seller'
+                            value={data.id_seller = login}
+                            onChange={handleChange}
+                        />
                         <input
                             className='form-control mt-3'
                             type='text'
@@ -145,14 +163,22 @@ function ModalUpdate({ product_id, product_name, brand, price, color, size, stoc
                             value={data.category_id}
                             onChange={handleChange}
                         />
+                        <textarea
+                            className='form-control mt-3'
+                            type='text'
+                            name='description'
+                            placeholder='Description'
+                            value={data.description}
+                            onChange={handleChange}
+                        />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <button type='submit' className='btn btn-primary'>
+                        <Button type='submit' variant='danger'>
                             Update
-                        </button>
+                        </Button>
                     </Modal.Footer>
                 </form>
             </Modal>

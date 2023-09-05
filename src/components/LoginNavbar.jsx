@@ -6,21 +6,21 @@ import { Link, useNavigate } from 'react-router-dom'
 const LoginNavbar = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.removeItem('token')
+        localStorage.clear()
         alert('Logout Successful')
         navigate('/login')
     }
     return (
         <div>
-            <header>
+            <header className='product'>
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light ">
                         <Link to={'/home'}>
-                        <img
-                            className="logo mr-4"
-                            src={logo}
-                            alt="logo"
-                        />
+                            <img
+                                className="logo mr-md-4"
+                                src={logo}
+                                alt="logo"
+                            />
                         </Link>
                         <button
                             className="navbar-toggler"
@@ -41,7 +41,8 @@ const LoginNavbar = () => {
                                 <li className="nav-item active">
                                     <form className="d-flex">
                                         <input
-                                            className="form-control mr-2" id='input'
+                                            id='input'
+                                            className="form-control mr-2"
                                             type="search "
                                             placeholder="Search"
                                             aria-label="Search"
@@ -65,7 +66,7 @@ const LoginNavbar = () => {
                                 <Link to={'/order'}><i className="bi bi-cart2 cart" /></Link>
                                 <i className="bi bi-bell bell" />
                                 <i className="bi bi-envelope envelope" />
-                                <Link to={'/profile'}><i className="bi bi-person-circle profile" /></Link>
+                                <Link to={'/profile'}><i className="bi bi-person-circle" id='profiles'/></Link>
                                 <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                             </form>
                         </div>

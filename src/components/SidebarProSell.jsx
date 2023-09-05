@@ -1,32 +1,15 @@
 import React from 'react'
 import profile from "../assets/image/user 1.svg"
-import shipping from "../assets/image/map-pin (3) 1.svg"
+import product from "../assets/image/package 1.svg"
 import produk from "../assets/image/clipboard 1.svg"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
+import LiteProfileSeller from './LiteProfileSeller'
 
 const SidebarProSell = () => {
+    const location = useLocation();
     return (
         <div>
-            <div className=" row">
-                <div className="d-flex justify-content-center align-items-center pl-4">
-                    <i
-                        className="bi bi-person-circle profile"
-                        style={{ fontSize: 60 }}
-                    />
-                </div>
-                <div>
-                    <p className=" m-0" style={{ textAlign: "center" }}>
-                        Profile
-                    </p>
-                    <div className="d-flex justify-content-center row m-0">
-                        <img src="../assets/image/Group (1).svg" alt="" />
-                        <a href="">
-                            <span style={{ fontWeight: 500 }}>Ubah profile</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-5" />
+            <LiteProfileSeller />
             <div className="mt-5">
                 <div className="row m-0">
                     <div>
@@ -43,8 +26,8 @@ const SidebarProSell = () => {
                         />
                     </div>
                     <div className=" d-flex align-items-center ml-3">
-                        <Link to={"/profile"}>
-                            <span>My account</span>
+                        <Link className={location.pathname === "/profile" ? 'active text-danger' : ''} style={{fontWeight:600}} to={"/profile"}>
+                            My account
                         </Link>
                     </div>
                 </div>
@@ -60,13 +43,13 @@ const SidebarProSell = () => {
                                 height: 40,
                                 borderRadius: 50
                             }}
-                            src={shipping}
+                            src={product}
                             alt=""
                         />
                     </div>
                     <div className=" d-flex align-items-center ml-3">
-                        <Link to={"/address"}>
-                            <span>Shipping address</span>
+                        <Link className={location.pathname === "/crud" ? 'active text-danger' : ''} style={{fontWeight:600}} to={"/crud"}>
+                            My product
                         </Link>
                     </div>
                 </div>
@@ -87,8 +70,8 @@ const SidebarProSell = () => {
                         />
                     </div>
                     <div className=" d-flex align-items-center ml-3">
-                        <Link to={"/crud"}>
-                            <span style={{ color: "#8E8E93" }}>My order</span>
+                        <Link className={location.pathname === "/myorder" ? 'active text-danger' : ''} style={{fontWeight:600}} to={"/myorder"}>
+                            My order
                         </Link>
                     </div>
                 </div>

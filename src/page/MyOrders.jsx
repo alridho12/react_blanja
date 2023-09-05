@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import "../assets/style/Profile.css"
-import Myproduct from '../components/MyProductSeller'
+import MyOrder from '../components/MyOrder'
 import LoginNavbar from '../components/LoginNavbar'
 import SidebarProSell from '../components/SidebarProSell'
 import SidebarProCus from '../components/SidebarProCus'
 import Footer from '../components/Footer'
 
 
-const ProductSeller = () => {
+const MyOrders = () => {
     const userRole = localStorage.getItem('role')
     const [role, setRole] = useState('');
 
@@ -16,7 +15,6 @@ const ProductSeller = () => {
             setRole(userRole);
         }
     }, [userRole]);
-
     return (
         <>
             <LoginNavbar />
@@ -28,16 +26,14 @@ const ProductSeller = () => {
                             {role === 'customer' && <SidebarProCus />}
                         </div>
                         <div className="col-md-8 ">
-                            <Myproduct />
+                            <MyOrder />
                         </div>
                     </div>
                 </section>
             </main>
             <Footer />
-            
         </>
-
     )
 }
 
-export default ProductSeller
+export default MyOrders

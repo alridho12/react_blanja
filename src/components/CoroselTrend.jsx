@@ -7,7 +7,7 @@ const CoroselTrend = () => {
         <div>
             <section>
                 <div className="container">
-                    <div className="row">
+                    <div className="row m-0">
                         <div
                             id="carouselExampleControls"
                             className="carousel slide"

@@ -1,206 +1,70 @@
-import React from 'react'
-import jazz from "../assets/image/gez-xavier-mansfield-b34E1vh1tYU-unsplash 1.png"
+import React, { useEffect, useState } from 'react'
 import stars from "../assets/image/Rating 5 stars.png"
+import axios from 'axios';
+import { FormatRupiah } from '@arismun/format-rupiah';
+import { Link } from 'react-router-dom';
+import Pagination from './Pagintion';
+
 
 const PopularProduct = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(8);
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/products`)
+            .then((res) => {
+                setProducts(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = products.slice(firstPostIndex, lastPostIndex);
     return (
         <div>
-            <section className="mt-5">
-                <h2 className="ml-3">Populer</h2>
-                <p className="ml-3">Find Clothes that are you tranding recently!</p>
+            <section className="container mt-5">
+                <h2 className="">Populer</h2>
+                <hr style={{ borderColor: "red", borderWidth: "2px", borderStyle: "solid" }} />
+                <p className="">Find Clothes that are you tranding recently!</p>
                 <div className="container mt-5">
-                    <div className="row">
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
+                    <div className="row m-0">
+                        {currentPosts.map((product) => (
+                            <div className="col-md-3 col-6 mb-md-5 p-1">
+                                <Link to={`/DetailProduct/${product.product_id}`}>
+                                    <div className="border rounded product">
+                                        <img
+
+                                            id='product-card-image'
+                                            crossOrigin='Anonymous'
+                                            src={product.image}
+                                            alt="cloth"
+                                        />
+                                        <div className="px-3">
+                                            <div style={{ height: 50 }} className='mb-2' >
+                                                <p className='mb-md-0  pb-md-0' id='product-name'>
+                                                    {product.product_name}
+                                                </p>
+                                            </div>
+                                            {/* <p className="p-0 m-0">{product.brand}</p> */}
+                                            <img className='ml-n1 mb-2' src={stars} alt="stars" />
+                                            <div className='row m-0 d-flex justify-content-between align-items-center'>
+                                                <p className="text-danger p-0 m-0" id="price-card"><FormatRupiah value={product.price} /></p>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img
-                                    className="w-100"
-                                    src={jazz}
-                                    alt="cloth"
-                                />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">Rp. 150.000</h5>
-                                    <img src={stars} alt="stars" />
-                                </div>
-                            </div>
+                        ))}
+                        <div className='container my-5 d-flex justify-content-center'>
+                            <Pagination
+                                totalPosts={products.length}
+                                postsPerPage={postsPerPage}
+                                setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
+                            />
                         </div>
                     </div>
                 </div>

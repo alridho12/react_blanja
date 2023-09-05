@@ -3,17 +3,17 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ModalDelete({product_id}) {
+function ModalAddressDelete({id_address}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
  let handleSubmit = (e) => {
         e.preventDefault();
-        axios.delete(`${process.env.REACT_APP_API_KEY}/products/${product_id}`)
+        axios.delete(`${process.env.REACT_APP_API_KEY}/address/${id_address}`)
             .then((res) => {
                 console.log(res);
-                alert("Product deleted");
+                alert("Address deleted");
                 setShow(false);
                 window.location.reload();
             })
@@ -27,16 +27,16 @@ function ModalDelete({product_id}) {
 
     return (
         <>
-            <Button className='mt-3' variant="danger" onClick={handleShow}>
-                Delete
+            <Button variant="danger" className='mt-n4'  onClick={handleShow}>
+                X
             </Button>
             <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete Product</Modal.Title>
+                    <Modal.Title>Delete Address</Modal.Title>
                 </Modal.Header>
                 <form onSubmit={handleSubmit}>
                     <Modal.Body>
-                        <h3>Are you sure delete this product?</h3>
+                        <h3>Are you sure delete this Address?</h3>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
@@ -52,4 +52,4 @@ function ModalDelete({product_id}) {
     );
 }
 
-export default ModalDelete;
+export default ModalAddressDelete;

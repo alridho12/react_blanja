@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const MyProfile = () => {
+const MyProfileSeller = () => {
     const idUser = localStorage.getItem('id');
     const [profile, setProfile] = useState({
-        fullname: '',
+        store_name: '',
         phone_number: '',
-        gender: '',
-        birth: ''
+        store_description: ''
     });
     const [imageFile, setImageFile] = useState(null);
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_API_KEY}/users/${idUser}`)
+            .get(`${process.env.REACT_APP_API_KEY}/sellers/${idUser}`)
             .then((res) => {
-                const { fullname, phone_number, gender, birth, photo_profile } = res.data.data[0];
+                const { store_name, phone_number, store_description, photo_profile } = res.data.data[0];
                 setProfile({
-                    fullname,
+                    store_name,
                     phone_number,
-                    gender,
-                    birth,
+                    store_description,
                     photo_profile
                 });
             })
@@ -42,19 +40,18 @@ const MyProfile = () => {
         setImageFile(file);
     };
 
-    const handleSubmit = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('fullname', profile.fullname);
+        formData.append('store_name', profile.store_name);
         formData.append('phone_number', profile.phone_number);
-        formData.append('gender', profile.gender);
-        formData.append('birth', profile.birth);
+        formData.append('store_description', profile.store_description);
         if (imageFile) {
             formData.append('photo_profile', imageFile);
         }
 
         try {
-            await axios.put(`${process.env.REACT_APP_API_KEY}/users/${idUser}`, formData, {
+            await axios.put(`${process.env.REACT_APP_API_KEY}/sellers/${idUser}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -74,69 +71,36 @@ const MyProfile = () => {
                     <span className='pt-0'>Manage your profile information</span>
                 </div>
                 <hr className="mt-1" />
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleUpdate}>
                     <div className="row m-0">
                         <div className='col-md-9 col-8' style={{borderRight:'1px #9b9b9b50 solid'}}>
                             <label className='container row d-flex justify-content-between align-items-center'>
-                                <p>Name</p>
+                                <p>Store name</p>
                                 <input
-                                    id='profile-input'
+                                    id='profile-seller-input'
                                     type='text'
-                                    name='fullname'
-                                    value={profile.fullname}
+                                    name='store_name'
+                                    value={profile.store_name}
                                     onChange={handleInputChange}
                                 />
                             </label>
                             <label className='container row d-flex justify-content-between align-items-center'>
                                 <p>Phone number</p>
                                 <input
-                                    id='profile-input'
+                                    id='profile-seller-input'
                                     type='text'
                                     name='phone_number'
                                     value={profile.phone_number}
                                     onChange={handleInputChange}
                                 />
                             </label>
-                            <label className='container row d-flex align-items-center'>
-                                <p style={{ marginRight: "65px" }}>Gender</p>
-                                <div className='row m-0 d-flex justify-content-center align-items-center'>
-                                    <input
-                                        type="radio"
-                                        style={{
-                                            width: "18px",
-                                            height: "18px",
-                                            border: "2px solid #000",
-                                            marginRight: "8px",
-                                        }}
-                                        name="gender"
-                                        value="Men"
-                                        checked={profile.gender === "Men"}
-                                        onChange={handleInputChange}
-                                    />
-                                    <p className='mr-3'>Men</p>
-                                    <input
-                                        type="radio"
-                                        style={{
-                                            width: "18px",
-                                            height: "18px",
-                                            border: "2px solid #000",
-                                            marginRight: "8px",
-                                        }}
-                                        name="gender"
-                                        value="Women"
-                                        checked={profile.gender === "Women"}
-                                        onChange={handleInputChange}
-                                    />
-                                    <p>Women</p>
-                                </div>
-                            </label>
                             <label className='container row d-flex justify-content-between align-items-center'>
-                                <p>Date of birth</p>
-                                <input
-                                    id='profile-input'
-                                    type='date'
-                                    name='birth'
-                                    value={profile.birth}
+                                <p>Store description</p>
+                                <textarea
+                                    id='profile-seller-input'
+                                    type='text'
+                                    name='store_description'
+                                    value={profile.store_description}
                                     onChange={handleInputChange}
                                 />
                             </label>
@@ -173,4 +137,4 @@ const MyProfile = () => {
     );
 }
 
-export default MyProfile;
+export default MyProfileSeller;

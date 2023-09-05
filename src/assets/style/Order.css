@@ -46,7 +46,7 @@ body {
     color: #8E8E93;
 }
 
-.profile {
+#profiles {
     font-size: 24px;
     margin-right: 24px;
     color: #8E8E93;
@@ -54,6 +54,11 @@ body {
 
 img {
     max-width: 100%;
+}
+
+#product-img{
+    width: 100px;
+    height: 100px;
 }
 
 #selek {
@@ -142,6 +147,11 @@ span {
 
     .input {
         width: 100%;
+    }
+
+    #product-img {
+        width: 50px;
+        height: 50px;
     }
 
     p {
