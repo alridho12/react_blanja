@@ -88,7 +88,7 @@ REACT_APP_BACKEND = [BACKEND_URL]
 
 <table>
  <tr>
-    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/signup%20customer.jpeg"  border="0" border="0" alt="1" /></td>
+    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/login%20seller.jpeg"  border="0" border="0" alt="1" /></td>
     <td> <img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/signup%20seller.jpeg" \ border="0"  border="0"  border="0"  alt="2" /></td>
   </tr>
    <tr>
@@ -98,7 +98,7 @@ REACT_APP_BACKEND = [BACKEND_URL]
 
   <tr>
     <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/login%20customer.jpeg"  border="0" border="0" alt="3" /> </td>
-    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/login%20seller.jpeg"  border="0" border="0" alt="4" /></td>
+    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/signup%20customer.jpeg"  border="0" border="0" alt="4" /></td>
 
   </tr>
    <tr>
