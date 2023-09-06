@@ -134,8 +134,8 @@ REACT_APP_BACKEND = [BACKEND_URL]
   </tr>
 
   <tr>
-    <td><img width="350px" src="https://github.com/izaazwaskito/Blanja-FE/assets/116268166/182a65e2-08b6-49b1-a54e-6190d9f8128e"  border="0" border="0" alt="3" /> </td>
-    <td><img width="350px" src="https://github.com/izaazwaskito/Blanja-FE/assets/116268166/a55f3541-c752-48e5-a285-c467bb7526a7"  border="0" border="0" alt="3" /> </td>
+    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/profile%20seller.jpeg"  border="0" border="0" alt="3" /> </td>
+    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/product%20seller.jpeg7"  border="0" border="0" alt="3" /> </td>
   </tr>
 
    <tr>
@@ -165,10 +165,10 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Related Project
 
-:rocket: [`Backend Blanja`](https://github.com/izaazwaskito/Blanja-BE)
+:rocket: [`Backend Blanja`](https://github.com/alridho12/backend_blanja)
 
-:rocket: [`Frontend Blanja`](https://github.com/izaazwaskito/Blanja-FE)
+:rocket: [`Frontend Blanja`](https://github.com/alridho12/react_blanja)
 
-:rocket: [`Demo Blanja`](https://blanja-fe-khaki.vercel.app/)
+:rocket: [`Demo Blanja`](https://react-blanja-g2voapec6-rajaalridho-gmailcom.vercel.app/)
 
-Project Link: [https://github.com/izaazwaskito/Blanja-FE](https://github.com/izaazwaskito/Blanja-FE)
+Project Link: [https://github.com/alridho12/backend_blanja](https://github.com/alridho12/react_blanja)
