@@ -135,7 +135,7 @@ REACT_APP_BACKEND = [BACKEND_URL]
 
   <tr>
     <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/profile%20seller.jpeg"  border="0" border="0" alt="3" /> </td>
-    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/product%20seller.jpeg7"  border="0" border="0" alt="3" /> </td>
+    <td><img width="350px" src="https://github.com/alridho12/react_blanja/blob/master/src/assets/screenshoot/product%20seller.jpeg"  border="0" border="0" alt="3" /> </td>
   </tr>
 
    <tr>
