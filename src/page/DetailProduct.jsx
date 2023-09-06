@@ -32,38 +32,38 @@ const DetailProduct = () => {
         product_id: product_id,
         quantity: 1,
         id_customer: idUser,
-      });
-    
-      const handleChange = (e) => {
-        setData({
-          ...data,
-          [e.target.name]: e.target.value,
-        });
-      };
-    
-      const handleAddToChart = (e) => {
-        e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_KEY}/orders`, data)
-        .then((res) => {
-          if (res.data.statusCode === 201) {
-            alert("Product add to chart")
-          } else {
-            alert("error");
-          }
-        });
-      }
+    });
 
-      const handleBuyNow = (e) => {
+    const handleChange = (e) => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleAddToChart = (e) => {
         e.preventDefault();
         axios.post(`${process.env.REACT_APP_API_KEY}/orders`, data)
-        .then((res) => {
-          if (res.data.statusCode === 201) {
-            navigate('/CheckOut')
-          } else {
-            alert("error");
-          }
-        });
-      }
+            .then((res) => {
+                if (res.data.statusCode === 201) {
+                    alert("Product add to chart")
+                } else {
+                    alert("error");
+                }
+            });
+    }
+
+    const handleBuyNow = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_API_KEY}/orders`, data)
+            .then((res) => {
+                if (res.data.statusCode === 201) {
+                    navigate('/CheckOut')
+                } else {
+                    alert("error");
+                }
+            });
+    }
 
     return (
         <>
@@ -149,7 +149,17 @@ const DetailProduct = () => {
                             </div>
                             <div className="mt-3 row container m-0 p-0">
                                 <div className="mr-5">
-                                    <p style={{ textAlign: "center" }}>Size</p>
+                                    <p
+                                        style={{
+                                            fontWeight: 500,
+                                            color: "#9b9b9b",
+                                            textAlign: "center"
+
+                                        }}
+                                        id='quanti'
+                                    >
+                                        Size
+                                    </p>
                                     <div className="row container m-0">
                                         <div>
                                             <SizeButton />
@@ -161,8 +171,8 @@ const DetailProduct = () => {
                                         style={{
                                             fontWeight: 500,
                                             color: "#9b9b9b",
-                                            textAlign:"center"
-                                            
+                                            textAlign: "center"
+
                                         }}
                                         id='quanti'
                                     >
@@ -231,13 +241,13 @@ const DetailProduct = () => {
                                 </div>
                             </div>
                             <div className='row m-0 mt-4'>
-                                    <button className='btn btn-outline-danger mr-3' onClick={handleAddToChart}>
-                                        Add to cart
-                                    </button>
+                                <button className='btn btn-outline-danger mr-3' onClick={handleAddToChart}>
+                                    Add to cart
+                                </button>
                                 {/* <Link to={'/CheckOut'} > */}
-                                    <button className='btn btn-danger' onClick={handleBuyNow}>
-                                        Buy now
-                                    </button>
+                                <button className='btn btn-danger' onClick={handleBuyNow}>
+                                    Buy now
+                                </button>
                                 {/* </Link> */}
                             </div>
                         </div>
