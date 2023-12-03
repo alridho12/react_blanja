@@ -31,11 +31,11 @@
 
 ## About The Project
 
-Blanja is an E-commerce website project that aims to provide an easy and convenient online shopping experience for users in Indonesia. The site offers a wide range of products, including fashion, beauty, electronics, food and beverages.
+Blanja is an E-commerce website project that aims to provide an easy and convenient online shopping . The site offers a wide range of products, including fashion, beauty.
 
 To use Blanja's services, users only need to create an account and enter their payment details. After that, users can browse products, add them to their shopping cart, and choose their preferred payment method.
 
-With all the features and security provided, Blanja is expected to provide a safe, easy, and convenient online shopping experience for users across Indonesia.
+With all the features and security provided, Blanja is expected to provide a safe, easy, and convenient online shopping experience for users.
 
 <!-- GETTING STARTED -->
 
